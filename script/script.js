@@ -8,17 +8,17 @@ const loadNavCategoryData = () => {
     .then(data =>{
         console.log(data.categories)
         const storeCategoryData = data.categories
-        storeCategoryData.forEach(data => {
-            navLink.innerHTML += `
-                <li class="hover:border-b-4 hover:border-red-600 cursor-pointer">${data.title}</li>
-            `
-        });
+        displayNavCategoryData(storeCategoryData)
     })
     .catch(err => console.log('There is some error here to fecth data'))
 }
 
 const displayNavCategoryData = (navItems) =>{
-
+    navItems.forEach(data => {
+            navLink.innerHTML += `
+                <li class="hover:border-b-4 hover:border-red-600 cursor-pointer">${data.title}</li>
+            `
+        });
 }
 
 loadNavCategoryData()
