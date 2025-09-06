@@ -28,7 +28,7 @@ const displayNavCategoryData = (navItems) =>{
                 li.classList.remove('border-b-4')
             })
 
-            if(e.target.localName = "li"){
+            if(e.target.localName === "li"){
                 console.log(e)
                 e.target.classList.add('border-b-4')
             }
