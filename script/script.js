@@ -40,6 +40,8 @@ const displayNavCategoryData = (navItems) =>{
             })
 
             if(e.target.localName === "li"){
+                showLoading()
+
                 loadNewsBycategory(e.target.id)
 
                 e.target.classList.add('border-b-4')
@@ -60,13 +62,19 @@ const loadNewsBycategory = (categoryId)=>{
         displayNewsByCategory(showNews)
         console.log(showNews)
     })
-    .catch(err => console.log('Data fetching error..'))
+    .catch((err) => {
+        showError()
+
+    })
 }
 
 
 const displayNewsByCategory = (newsCard) =>{
 
     newsContainer.innerHTML = ""
+     if(newsCard.length === 0){
+            showEmptyMsg()
+        }
 
     newsCard.forEach(news =>{
         // console.log(news.image.srcset[5])
@@ -132,6 +140,24 @@ const handleDeleteBookmark = (bookmarkId) =>{
    const filteredData =  bookmarks.filter(bookmark => bookmark.id !== bookmarkId )
    bookmarks = filteredData
    displayBookmarks(bookmarks)
+}
+
+const showLoading = () =>{
+    newsContainer.innerHTML = `
+        <h2 class="bg-green-600 p-4 text-white text-2xl">Loading....</h2>
+    `
+}
+
+const showError = () =>{
+    newsContainer.innerHTML = `
+        <h2 class="bg-red-600 p-4 text-white text-2xl">Something Went Wrong...</h2>
+    `
+}
+
+const showEmptyMsg =() =>{
+    newsContainer.innerHTML = `
+        <h2 class="bg-orange-600 p-4 text-white text-2xl">No News Found For This Category</h2>
+    `
 }
 
 loadNavCategoryData()
