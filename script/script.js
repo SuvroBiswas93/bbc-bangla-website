@@ -2,6 +2,10 @@ const navLink = document.getElementById('nav-link');
 
 const newsContainer = document.getElementById('news-container')
 
+const bookmarkContainer = document.getElementById('bookmark-container')
+
+let bookmarks =[]
+
 const loadNavCategoryData = () => {
     const url = `https://news-api-fs.vercel.app/api/categories`;
 
@@ -69,9 +73,10 @@ const displayNewsByCategory = (newsCard) =>{
                 <div>
                     <img src="${news.image.srcset[5].url}" alt="" class ="rounded-t">
                 </div>
-                <div class = "px-3">
-                    <h1>${news.title}</h1>
-                    <p>${news.time}</p>
+                <div id ="${news.id}" class = "px-3">
+                    <h1 class = "font-bold">${news.title}</h1>
+                    <p class ="text-sm">${news.time}</p>
+                    <button class = "btn mb-1">Bookmark</button>
                 </div>
 
            </div>
@@ -79,6 +84,43 @@ const displayNewsByCategory = (newsCard) =>{
     })
     
 }
+
+newsContainer.addEventListener('click', (e) => {
+   
+    if(e.target.innerText === "Bookmark"){
+        handleBookmarks(e)
+       
+    }
+})
+
+const handleBookmarks = (e) =>{
+      const title = e.target.parentNode.children[0].innerText
+        const id = e.target.parentNode.id
+
+        bookmarks.push({
+            title : title,
+            id : id
+        })
+
+        displayBookmarks(bookmarks)
+}
+
+
+const displayBookmarks = (show) =>{
+    bookmarkContainer.innerHTML = ''
+    show.forEach(bookmark =>{
+        bookmarkContainer.innerHTML += `
+            <div class = " border border-gray-300 p-2 my-2 rounded-md flex justify-between items-center gap-5 text-justify">
+                    <h1>${bookmark.title}</h1>
+                    <button class ="text-white text-sm bg-red-400 p-1 rounded-sm cursor-pointer">Clear</button>
+            </div>
+        `
+    })
+   
+}
+
+
+
 
 loadNavCategoryData()
 loadNewsBycategory('main')
