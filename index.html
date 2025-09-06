@@ -28,13 +28,14 @@
         </nav>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 mt-6 grid grid-cols-4 gap-4">
-        <div id="news-container" class="grid grid-cols-2 md:grid-cols-3 gap-4 cursor-pointer col-span-3 ">
+    <main class="max-w-7xl mx-auto px-4 mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div id="news-container" class="grid grid-cols-2 md:grid-cols-3 gap-4 cursor-pointer col-span-3  ">
            
         </div>
 
-        <div  class="col-span-1 border border-gray-300 rounded-lg overflow-hidden">
+        <div  class="md:col-span-1 border border-gray-300 rounded-lg overflow-hidden order-first md:order-last">
             <h1 class="bg-red-500 font-extrabold text-white text-center py-3">Bookmark</h1>
+            <p id="bookmark-count" class="text-red-500 font-semibold text-center text-2xl">0</p>
 
             <div id ="bookmark-container">
                 

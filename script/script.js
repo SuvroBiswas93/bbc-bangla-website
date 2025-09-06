@@ -4,6 +4,8 @@ const newsContainer = document.getElementById('news-container')
 
 const bookmarkContainer = document.getElementById('bookmark-container')
 
+const bookmarksCount = document.getElementById("bookmark-count")
+
 let bookmarks =[]
 
 const loadNavCategoryData = () => {
@@ -97,6 +99,10 @@ const handleBookmarks = (e) =>{
       const title = e.target.parentNode.children[0].innerText
         const id = e.target.parentNode.id
 
+        if (bookmarks.some(bookmark => bookmark.id === id)) {
+                return;
+            }
+
         bookmarks.push({
             title : title,
             id : id
@@ -110,17 +116,23 @@ const displayBookmarks = (show) =>{
     bookmarkContainer.innerHTML = ''
     show.forEach(bookmark =>{
         bookmarkContainer.innerHTML += `
-            <div class = " border border-gray-300 p-2 my-2 rounded-md flex justify-between items-center gap-5 text-justify">
+            <div class = " mx-2 border border-gray-300 p-2 my-2 rounded-md flex justify-between items-center gap-5 text-justify">
                     <h1>${bookmark.title}</h1>
-                    <button class ="text-white text-sm bg-red-400 p-1 rounded-sm cursor-pointer">Clear</button>
+                    <button onclick = "handleDeleteBookmark('${bookmark.id}')" class ="text-white text-sm bg-red-500 p-1 rounded-sm cursor-pointer">Clear</button>
             </div>
         `
     })
+
+    bookmarksCount.innerText = bookmarks.length
    
 }
 
 
-
+const handleDeleteBookmark = (bookmarkId) =>{
+   const filteredData =  bookmarks.filter(bookmark => bookmark.id !== bookmarkId )
+   bookmarks = filteredData
+   displayBookmarks(bookmarks)
+}
 
 loadNavCategoryData()
 loadNewsBycategory('main')
